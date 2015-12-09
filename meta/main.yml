@@ -21,6 +21,6 @@ galaxy_info:
   - cryptography
   
 dependencies:
-  - role: netzwirt.ansible-simple-pki
+  - role: netzwirt.simple-pki
   
 allow_duplicates: yes 

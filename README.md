@@ -56,7 +56,7 @@ Example Playbook
     - hosts: openvpn
       become: true
       roles:
-      - netzwirt.openvpn-server
+      - netzwirt.openvpn
 
 License
 -------
