@@ -1,0 +1,26 @@
+---
+galaxy_info:
+  author: 'Reto Gassmann'
+  description: 'OpenVPN with PKI for Ubuntu/Debian'
+  license: BSD
+  min_ansible_version: '1.8'
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  - name: Debian
+    versions:
+    - jessie
+
+  categories:
+  - networking
+  - system
+  - web
+  - security
+  - cryptography
+  
+dependencies:
+  - role: netzwirt.ansible-simple-pki
+  
+allow_duplicates: yes 

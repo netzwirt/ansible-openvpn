@@ -1,0 +1,5 @@
+---
+# handlers file for netzwirt.openvpn-server
+
+- name: openvpn restart
+  service: name=openvpn state=restarted

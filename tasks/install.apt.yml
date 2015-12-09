@@ -1,0 +1,9 @@
+# tasks file for netzwirt.openvpn-server
+# install required packages with apt
+
+- name: install required packages for OpenVPN
+  apt: name={{item}}
+  with_items: 
+    - openvpn
+    - udev
+    - openssl

@@ -1,0 +1,30 @@
+---
+# defaults file for netzwirt.openvpn-server
+# set the real values in host_vars/hostname or group_vars/groupname file
+
+openvpn_port: 1194
+openvpn_proto: udp
+openvpn_key_size: 2048
+
+openvpn_user: "openvpn"
+openvpn_group: "openvpn"
+
+# you can automaticly fetch client configs
+# to the ansible host by setting this
+# variable.
+# relative path is relative to the playbook
+# openvpn_fetch_clientconfigs: /tmp
+
+openvpn_configdir: /etc/openvpn
+openvpn_logdir: "/var/log"
+openvpn_logfile: "{{openvpn_logdir}}/openvpn.log"
+
+openvpn_fqdn: "{{ansible_fqdn}}"
+
+# DN settings
+openvpn_domainComponent_tld: "com"
+openvpn_domainComponent_domain: "example"
+openvpn_organizationName: "Example Company Inc"
+
+openvpn_users: []
+openvpn_revocation_list: []
