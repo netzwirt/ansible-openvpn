@@ -1,5 +1,5 @@
-Role Name
-=========
+ansible-openvpn
+===============
 
 OpenVPN with PKI for Ubuntu/Debian
 
