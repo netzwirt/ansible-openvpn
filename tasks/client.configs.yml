@@ -1,4 +1,4 @@
-# tasks file for netzwirt.openvpn-server
+# tasks file for netzwirt.openvpn
 # create client config files
 
 - name: register server ca key

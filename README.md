@@ -1,15 +1,12 @@
-ansible-openvpn
-===============
+# ansible-openvpn
 
 OpenVPN with PKI for Ubuntu/Debian
 
-Requirements
-------------
+## Requirements
 
 None
 
-Role Variables
---------------
+## Role Variables
 
 Certificate subject:
 
@@ -30,27 +27,23 @@ Do **not** delete user from `openvpn_users`. To revoke certificates create a lis
 	openvpn_revocation_list:
 	- fred
 
-Renew certificates from command-line
-------------------------------------
+## Renew certificates from command-line
 
 Pass extra variable `simplepki_renew_certificates` to `ansible-playbook`. This variable should only be passed as command line argument.
 
 	ansible-playbook --extra-vars '{"simplepki_renew_certificates": ["fred","john"]}'
 
-Revoke certificates from command-line
--------------------------------------
+## Revoke certificates from command-line
 
 Pass extra variable `simplepki_revocation_list` to `ansible-playbook`.
 
     ansible-playbook --extra-vars '{"simplepki_revocation_list": ["fred","john"]}'
 
-Dependencies
-------------
+## Dependencies
 
 - netzwirt.simple-pki
 
-Example Playbook
-----------------
+# Example Playbook
 
     ---  
     - hosts: openvpn
@@ -58,12 +51,10 @@ Example Playbook
       roles:
       - netzwirt.openvpn
 
-License
--------
+# License
 
 BSD
 
-Author Information
-------------------
+# Author Information
 
 [netzwirt](https://github.com/netzwirt)
