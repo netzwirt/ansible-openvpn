@@ -1,5 +1,5 @@
 ---
-# tasks file for netzwirt.openvpn-server
+# tasks file for netzwirt.openvpn
 
 - name: create group for open vpn
   group: 
@@ -56,7 +56,10 @@
 
 
 - name: Ensure OpenVPN is started
-  service: name=openvpn state=started enabled=yes
+  service: 
+    name=openvpn 
+    state=started 
+    enabled=yes
 
 
 - include: client.configs.yml

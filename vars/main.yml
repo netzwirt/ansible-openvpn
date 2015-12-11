@@ -1,5 +1,5 @@
 ---
-# vars file for netzwirt.openvpn-server
+# vars file for netzwirt.openvpn
 # there's no need to change this values 
 # this is just a mapping between pki <> openvpn vars
 

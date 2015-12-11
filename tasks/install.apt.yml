@@ -1,4 +1,4 @@
-# tasks file for netzwirt.openvpn-server
+# tasks file for netzwirt.openvpn
 # install required packages with apt
 
 - name: install required packages for OpenVPN
