@@ -24,12 +24,6 @@ proto {{openvpn_proto}}
 # If you want to control access policies
 # over the VPN, you must create firewall
 # rules for the the TUN/TAP interface.
-# On non-Windows systems, you can give
-# an explicit unit number, such as tun0.
-# On Windows, use "dev-node" for this.
-# On most systems, the VPN will not function
-# unless you partially or fully disable
-# the firewall for the TUN/TAP interface.
 ;dev tap
 dev tun0
 topology subnet
@@ -53,21 +47,20 @@ ca   {{openvpn_ca_cert}}
 cert {{openvpn_server_cert}}
 key  {{openvpn_server_key}}  # This file should be kept secret
 
-
-# Use crl
+# Use certicicate revocation list
 crl-verify {{openvpn_ca_crl_list}}
 
-# Diffie hellman parameters.
+# Diffie Hellman parameters.
 dh {{openvpn_keydir}}/dh{{openvpn_key_size}}.pem
 
 # Configure server mode and supply a VPN subnet
 # for OpenVPN to draw client addresses from.
-# The server will take 10.8.0.1 for itself,
+# The server will take x.x.x.1 for itself,
 # the rest will be made available to clients.
 # Each client will be able to reach the server
-# on 10.8.0.1. Comment this line out if you are
+# on x.x.x.1. Comment this line out if you are
 # ethernet bridging. See the man page for more info.
-server 10.8.0.0 255.255.255.0
+server {{openvpn_server_pool}}
 
 # Maintain a record of client <-> virtual IP address
 # associations in this file.  If OpenVPN goes down or
@@ -81,12 +74,12 @@ ifconfig-pool-persist ipp.txt
 # to bridge the TAP interface with the ethernet
 # NIC interface.  Then you must manually set the
 # IP/netmask on the bridge interface, here we
-# assume 10.8.0.4/255.255.255.0.  Finally we
+# assume x.x.x.4/255.255.255.0.  Finally we
 # must set aside an IP range in this subnet
-# (start=10.8.0.50 end=10.8.0.100) to allocate
+# (start=x.x.x.50 end=x.x.x.100) to allocate
 # to connecting clients.  Leave this line commented
 # out unless you are ethernet bridging.
-;server-bridge 10.8.0.4 255.255.255.0 10.8.0.50 10.8.0.100
+;server-bridge x.x.x.4 255.255.255.0 x.x.x.50 x.x.x.100
 
 # Configure server mode for ethernet bridging
 # using a DHCP-proxy, where clients talk
@@ -105,15 +98,13 @@ ifconfig-pool-persist ipp.txt
 # the server.  Remember that these
 # private subnets will also need
 # to know to route the OpenVPN client
-# address pool (10.8.0.0/255.255.255.0)
+# address pool (x.x.x.0/255.255.255.0)
 # back to the OpenVPN server.
 {% if openvpn_push_routes is defined and openvpn_push_routes.0 is defined%}
 {% for route in openvpn_push_routes %}
-push "route {{route}} 10.8.0.1"
+push "route {{route}}"
 {% endfor %}
 {% endif %}
-;push "route 192.168.20.0 255.255.255.0"
-
 
 # To assign specific IP addresses to specific
 # clients or if a connecting client has a private
