@@ -1,8 +1,10 @@
 # {{ansible_managed}}
 
+{% if openvpn_listen is defined %}
 # Which local IP address should OpenVPN
 # listen on? (optional)
-;local a.b.c.d
+;local {{openvpn_listen}}
+{% endif %}
 
 # Which TCP/UDP port should OpenVPN listen on?
 # If you want to run multiple OpenVPN instances
@@ -29,7 +31,8 @@ proto {{openvpn_proto}}
 # unless you partially or fully disable
 # the firewall for the TUN/TAP interface.
 ;dev tap
-dev tun
+dev tun0
+topology subnet
 
 # SSL/TLS root certificate (ca), certificate
 # (cert), and private key (key).  Each client
@@ -104,8 +107,13 @@ ifconfig-pool-persist ipp.txt
 # to know to route the OpenVPN client
 # address pool (10.8.0.0/255.255.255.0)
 # back to the OpenVPN server.
-;push "route 192.168.10.0 255.255.255.0"
+{% if openvpn_push_routes is defined and openvpn_push_routes.0 is defined%}
+{% for route in openvpn_push_routes %}
+push "route {{route}} 10.8.0.1"
+{% endfor %}
+{% endif %}
 ;push "route 192.168.20.0 255.255.255.0"
+
 
 # To assign specific IP addresses to specific
 # clients or if a connecting client has a private
@@ -163,8 +171,20 @@ ifconfig-pool-persist ipp.txt
 # http://openvpn.net/faq.html#dhcpcaveats
 # The addresses below refer to the public
 # DNS servers provided by opendns.com.
-;push "dhcp-option DNS 208.67.222.222"
+{% if openvpn_push_ns is defined and openvpn_push_ns.0 is defined%}
+{% for ip in openvpn_push_ns %}
+push "dhcp-option DNS {{ip}}"
+{% endfor %}
+{% endif %}
 ;push "dhcp-option DNS 208.67.220.220"
+
+# push search domains
+{% if openvpn_push_domains is defined and openvpn_push_domains.0 is defined%}
+{% for domain in openvpn_push_domains %}
+push "dhcp-option DOMAIN {{domain}}"
+{% endfor %}
+{% endif %}
+; push "dhcp-option DOMAIN your.domain"
 
 # Uncomment this directive to allow different
 # clients to be able to "see" each other.

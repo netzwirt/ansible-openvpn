@@ -1,10 +1,14 @@
 ---
-# defaults file for netzwirt.openvpn-server
+# defaults file for netzwirt.openvpn
 # set the real values in host_vars/hostname or group_vars/groupname file
 
 openvpn_port: 1194
 openvpn_proto: udp
 openvpn_key_size: 2048
+
+openvpn_push_ns: []
+openvpn_push_domains: []
+openvpn_push_routes: []
 
 openvpn_user: "openvpn"
 openvpn_group: "openvpn"
