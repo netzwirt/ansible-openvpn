@@ -1,6 +1,7 @@
 # tasks file for netzwirt.openvpn
 # create client config files
 
+
 - name: register server ca key
   command: cat {{openvpn_ca_cert}}
   register: vpn_ca_cert
@@ -38,7 +39,7 @@
 - name: fetch client config
   fetch: 
     src={{openvpn_clientconfig_dir}}/{{item.username}}-{{openvpn_fqdn}}.ovpn 
-    dest={{openvpn_fetch_clientconfigs|trim}}/{{item.username}}-{{openvpn_fqdn}}.ovpn
+    dest={{inventory_dir}}/_data/{{ role_path.split('/').pop()  }}/{{inventory_hostname}}/{{item.username}}-{{openvpn_fqdn}}.ovpn
     flat=yes
   with_items: openvpn_users
-  when: openvpn_fetch_clientconfigs is defined
+  when: openvpn_fetch_clientconfigs
