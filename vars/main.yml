@@ -3,6 +3,13 @@
 # there's no need to change this values 
 # this is just a mapping between pki <> openvpn vars
 
+openvpn_user: openvpn
+openvpn_group: openvpn
+
+openvpn_configdir: /etc/openvpn
+openvpn_logdir: /var/log
+openvpn_logfile: "{{openvpn_logdir}}/openvpn.log"
+
 # map openvpn vars to pki ------------------------
 
 simplepki_base_dir: "{{openvpn_configdir|trim}}/pki"

@@ -12,14 +12,7 @@ openvpn_push_routes: []
 
 openvpn_server_pool: "10.8.0.0 255.255.255.0"
 
-openvpn_user: "openvpn"
-openvpn_group: "openvpn"
-
 openvpn_fetch_clientconfigs: True
-
-openvpn_configdir: /etc/openvpn
-openvpn_logdir: "/var/log"
-openvpn_logfile: "{{openvpn_logdir}}/openvpn.log"
 
 openvpn_fqdn: "{{ansible_fqdn}}"
 
