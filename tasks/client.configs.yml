@@ -39,7 +39,8 @@
 - name: fetch client config
   fetch: 
     src={{openvpn_clientconfig_dir}}/{{item.username}}-{{openvpn_fqdn}}.ovpn 
-    dest={{inventory_dir}}/_data/{{ role_path.split('/').pop()  }}/{{inventory_hostname}}/{{item.username}}-{{openvpn_fqdn}}.ovpn
+    dest={{inventory_dir}}/storage/{{ role_path.split('/').pop()  }}/{{inventory_hostname}}/{{item.username}}-{{openvpn_fqdn}}.ovpn
     flat=yes
   with_items: openvpn_users
   when: openvpn_fetch_clientconfigs
+  
