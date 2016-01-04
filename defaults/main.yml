@@ -23,3 +23,5 @@ openvpn_organizationName: "Example Company Inc"
 
 openvpn_users: []
 openvpn_revocation_list: []
+
+openvpn_server_certs: []

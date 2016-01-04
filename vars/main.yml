@@ -27,7 +27,9 @@ simplepki_user_certs: "{{openvpn_users}}"
 simplepki_revocation_list: "{{openvpn_revocation_list}}"
 
 # create a server cert
-simplepki_server_certs: [{ fqdn: "{{openvpn_fqdn}}" }]
+simplepki_server_certs: 
+- { fqdn: '{{openvpn_fqdn}}' }
+- "{{openvpn_server_certs}}"
 
 # map pki vars to openvpn -------------------------
 
