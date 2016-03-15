@@ -15,9 +15,6 @@ openvpn_logfile: "{{openvpn_logdir}}/openvpn.log"
 simplepki_base_dir: "{{openvpn_configdir|trim}}/pki"
 simplepki_key_size: "{{openvpn_key_size|trim}}"
 
-# base path for the pki
-simplepki_base_dir: "{{openvpn_configdir}}/pki"
-simplepki_key_size: "{{openvpn_key_size}}"
 
 simplepki_domainComponent_tld: "{{openvpn_domainComponent_tld}}"
 simplepki_domainComponent_domain: "{{openvpn_domainComponent_domain}}"
