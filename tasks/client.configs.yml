@@ -23,24 +23,24 @@
          echo \</key\>
   register: vpn_client_certs
   changed_when: false
-  with_items: openvpn_users
+  with_items: "{{ openvpn_users }}"
 
   
 - name: generate client config
   template: 
-    src=client.ovpn.j2 
-    dest={{openvpn_clientconfig_dir}}/{{item.item.username}}-{{openvpn_fqdn}}.ovpn 
-    owner=root 
-    group=root
-    mode=0400
-  with_items: vpn_client_certs.results
+    src: "client.ovpn.j2" 
+    dest: "{{openvpn_clientconfig_dir}}/{{item.item.username}}-{{openvpn_fqdn}}.ovpn" 
+    owner: root 
+    group: root
+    mode: 0400
+  with_items: "{{ vpn_client_certs.results }}"
 
 
 - name: fetch client config
   fetch: 
-    src={{openvpn_clientconfig_dir}}/{{item.username}}-{{openvpn_fqdn}}.ovpn 
-    dest={{inventory_dir}}/storage/{{ role_path.split('/').pop()  }}/{{inventory_hostname}}/{{item.username}}-{{openvpn_fqdn}}.ovpn
-    flat=yes
-  with_items: openvpn_users
+    src: "{{openvpn_clientconfig_dir}}/{{item.username}}-{{openvpn_fqdn}}.ovpn"
+    dest: "{{inventory_dir}}/storage/{{ role_path.split('/').pop()  }}/{{inventory_hostname}}/{{item.username}}-{{openvpn_fqdn}}.ovpn"
+    flat: yes
+  with_items: "{{ openvpn_users }}"
   when: openvpn_fetch_clientconfigs
   
