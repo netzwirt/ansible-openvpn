@@ -3,9 +3,9 @@
 
 - name: create group for open vpn
   group: 
-    name={{openvpn_group}} 
-    system=yes
-    state=present
+    name: "{{openvpn_group}}"
+    system: yes
+    state: present
 
 
 - name: create user for open vpn
@@ -31,9 +31,10 @@
     owner=root
     group={{openvpn_group}}
   with_items:
-    - "{{openvpn_keydir}}"
-    - "{{openvpn_configdir}}"
-    - "{{openvpn_clientconfig_dir}}"
+    - "{{ openvpn_keydir }}"
+    - "{{ openvpn_configdir }}"
+    - "{{ openvpn_clientconfig_dir }}"
+    - "{{ openvpn_client_certificates_dir }}"
 
 
 - name: generate diffie hellman params
@@ -50,8 +51,8 @@
 
 - name: create openvpn server config
   template:
-    dest={{openvpn_configdir}}/server.conf
-    src=server.conf.j2
+    dest: "{{openvpn_configdir}}/server.conf"
+    src: server.conf.j2
   notify: [openvpn restart]
 
 

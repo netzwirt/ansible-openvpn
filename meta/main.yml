@@ -19,8 +19,6 @@ galaxy_info:
   - web
   - security
   - cryptography
-  
-dependencies:
-  - role: netzwirt.simple-pki
+
   
 allow_duplicates: yes 

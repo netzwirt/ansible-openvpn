@@ -10,7 +10,17 @@ openvpn_push_ns: []
 openvpn_push_domains: []
 openvpn_push_routes: []
 
-openvpn_server_pool: "10.8.0.0 255.255.255.0"
+# simple configuration with --server
+openvpn_server_full_pool: "10.8.0.0 255.255.255.0"
+
+# for more advanced config
+# set {{ openvpn_server_full_pool }} to ''
+# then these values are used
+openvpn_ifconfig: "10.8.8.1 255.255.252.0"
+openvpn_push_route_gateway: "10.8.8.1"
+openvpn_ifconfig_pool: "10.8.8.2 10.8.8.199 255.255.255.0"
+
+
 
 openvpn_fetch_clientconfigs: True
 
