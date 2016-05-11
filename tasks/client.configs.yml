@@ -3,44 +3,44 @@
 
 
 - name: register server ca key
-  command: cat {{openvpn_ca_cert}}
+  command: cat {{ openvpn_ca_cert }}
   register: vpn_ca_cert
   changed_when: false
 
 
 - name: register tls-auth key
-  command: cat {{openvpn_tls_auth_key}}
+  command: cat {{ openvpn_tls_auth_key }}
   register: vpn_tls_key
   changed_when: false
 
 
 - name: register client certs
   shell: echo \<cert\> && 
-         cat {{simplepki_certs_dir}}/{{item.username}}{{simplepki_file_ext_crt}} && 
+         cat {{ simplepki_certs_dir }}/{{ item.username }}{{ simplepki_file_ext_crt }} && 
          echo \</cert\> && 
          echo \<key\> && 
-         cat {{simplepki_certs_dir}}/{{item.username}}{{simplepki_file_ext_key}} && 
+         cat {{ simplepki_certs_dir }}/{{ item.username }}{{ simplepki_file_ext_key }} && 
          echo \</key\>
   register: vpn_client_certs
   changed_when: false
-  with_items: "{{ openvpn_users }}"
+  with_items: "{{  openvpn_users  }}"
 
   
 - name: generate client config
   template: 
     src: "client.ovpn.j2" 
-    dest: "{{openvpn_client_certificates_dir}}/{{item.item.username}}-{{openvpn_fqdn}}.ovpn" 
+    dest: "{{ openvpn_client_certificates_dir }}/{{ item.item.username }}-{{ openvpn_fqdn }}.ovpn" 
     owner: root 
     group: root
     mode: 0400
-  with_items: "{{ vpn_client_certs.results }}"
+  with_items: "{{  vpn_client_certs.results  }}"
 
 
 - name: fetch client config
   fetch: 
-    src: "{{openvpn_client_certificates_dir}}/{{item.username}}-{{openvpn_fqdn}}.ovpn"
-    dest: "{{inventory_dir}}/storage/{{ role_path.split('/').pop()  }}/{{inventory_hostname}}/{{item.username}}-{{openvpn_fqdn}}/{{item.username}}-{{openvpn_fqdn}}.ovpn"
+    src: "{{ openvpn_client_certificates_dir }}/{{ item.username }}-{{ openvpn_fqdn }}.ovpn"
+    dest: "{{ openvpn_local_storage_path }}/{{ item.username }}-{{ openvpn_fqdn }}/{{ item.username }}-{{ openvpn_fqdn }}.ovpn"
     flat: yes
-  with_items: "{{ openvpn_users }}"
+  with_items: "{{ openvpn_users }}"
   when: openvpn_fetch_clientconfigs
   
