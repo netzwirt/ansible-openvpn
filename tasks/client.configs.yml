@@ -42,5 +42,4 @@
     dest: "{{ openvpn_local_storage_path }}/{{ item.username }}-{{ openvpn_fqdn }}/{{ item.username }}-{{ openvpn_fqdn }}.ovpn"
     flat: yes
   with_items: "{{ openvpn_users }}"
-  when: openvpn_fetch_clientconfigs
   

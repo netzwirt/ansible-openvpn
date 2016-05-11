@@ -23,10 +23,10 @@ simplepki_organizationName: "{{ openvpn_organizationName }}"
 simplepki_user_certs: "{{ openvpn_users}}"
 simplepki_revocation_list: "{{ openvpn_revocation_list }}"
 
-# create a server cert
+# create server certs
 simplepki_server_certs: 
-- { fqdn: '{{openvpn_fqdn}}' }
-- "{{openvpn_server_certs}}"
+- { fqdn: '{{ openvpn_fqdn }}' }
+- "{{ openvpn_server_certs }}"
 
 # map pki vars to openvpn -------------------------
 
@@ -34,9 +34,4 @@ openvpn_keydir: "{{ openvpn_configdir|trim }}/keys"
 openvpn_client_certificates_dir: "{{ openvpn_configdir|trim }}/clients"
 openvpn_clientconfig_dir:  "{{ openvpn_configdir|trim }}/ccd"
 
-# x509 stuff for the server
-openvpn_ca_cert: "{{ simplepki_ca_base_dir|trim }}/{{ simplepki_chained_ca_name|trim }}{{ simplepki_file_ext_crt }}"
-openvpn_server_cert: "{{ simplepki_certs_dir|trim }}/{{ openvpn_fqdn|trim }}{{ simplepki_file_ext_crt }}"
-openvpn_server_key: "{{ simplepki_certs_dir|trim }}/{{ openvpn_fqdn|trim }}{{ simplepki_file_ext_key }}"
-openvpn_ca_crl_list: "{{ simplepki_crls_dir|trim }}/{{ simplepki_signing_ca_name|trim }}.crl"
-openvpn_tls_auth_key: "{{ openvpn_keydir|trim }}/ta{{ openvpn_key_size }}.key"
+

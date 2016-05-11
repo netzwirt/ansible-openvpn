@@ -10,12 +10,12 @@
 
 - name: create user for open vpn
   user: 
-    name={{openvpn_user}} 
-    comment="Open VPN"
-    group={{openvpn_group}}
-    system=yes
-    state=present
-    createhome=no
+    name: "{{openvpn_user}}" 
+    comment: "Open VPN"
+    group: "{{openvpn_group}}"
+    system: yes
+    state: present
+    createhome: no
 
 
 - name: installing packages with apt
@@ -25,11 +25,11 @@
 
 - name: create openvpn directories
   file: 
-    path={{item}} 
-    state=directory 
-    mode=0750
-    owner=root
-    group={{openvpn_group}}
+    path: "{{item}}" 
+    state: directory 
+    mode: 0750
+    owner: root
+    group: "{{openvpn_group}}"
   with_items:
     - "{{ openvpn_keydir }}"
     - "{{ openvpn_configdir }}"
@@ -47,20 +47,40 @@
   command: openvpn --genkey --secret {{openvpn_tls_auth_key}}
     chdir={{openvpn_keydir}}
     creates={{openvpn_tls_auth_key}}
+  when: openvpn_is_pki_master
 
+- name: copy x509 stuff to slave
+  include: 'copy-x509.yml'
+  when: openvpn_is_pki_master == False
 
 - name: create openvpn server config
   template:
     dest: "{{openvpn_configdir}}/server.conf"
     src: server.conf.j2
-  notify: [openvpn restart]
+  notify: 
+  - openvpn restart
 
 
 - name: Ensure OpenVPN is started
   service: 
-    name=openvpn 
-    state=started 
-    enabled=yes
+    name: openvpn 
+    state: started 
+    enabled: yes
 
 
 - include: client.configs.yml
+  when: openvpn_is_pki_master
+
+
+- name: fetch x509 items
+  fetch: 
+    src: "{{ item }}"
+    dest: "{{ openvpn_local_storage_path }}/x509/{{ item.split('/').pop()  }}"
+    flat: yes
+  with_items: 
+  - "{{ openvpn_ca_cert }}"
+  - "{{ openvpn_server_cert }}"
+  - "{{ openvpn_server_key }}"
+  - "{{ openvpn_ca_crl_list }}"
+  - "{{ openvpn_tls_auth_key }}"
+  when: openvpn_fetch_x509

@@ -1,4 +1,4 @@
-# {{ansible_managed}}
+# {{ansible_managed }}
 
 # Specify that we are a client and that we
 # will be pulling certain config file directives
@@ -16,13 +16,16 @@ dev tun
 # Are we connecting to a TCP or
 # UDP server?  Use the same setting as
 # on the server.
-proto {{openvpn_proto}}
+proto {{ openvpn_proto }}
 
 
 # The hostname/IP and port of the server.
 # You can have multiple remote entries
 # to load balance between the servers.
-remote {{openvpn_fqdn}} {{openvpn_port}}
+remote {{ openvpn_fqdn }} {{ openvpn_port }}
+{% if openvpn_fqdn_slave is defined and openvpn_fqdn_slave != '' %}
+remote {{ openvpn_fqdn_slave }} {{ openvpn_port }}
+{% endif %}
 
 # Choose a random host from the remote
 # list for load-balancing.  Otherwise
@@ -92,7 +95,7 @@ key-direction 1
 remote-cert-eku "TLS Web Server Authentication"
 
 # Verify the server's CN
-# tls-remote "/CN={{openvpn_fqdn}}"
+# tls-remote "/CN={{ openvpn_fqdn }}"
 
 # Select a cryptographic cipher.
 # If the cipher option is used on the server

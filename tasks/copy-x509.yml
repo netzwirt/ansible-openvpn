@@ -1,0 +1,31 @@
+# tasks file for netzwirt.openvpn
+# copy x509 from master to slave
+
+
+- name: create x509 directory
+  file: 
+    path: "{{ openvpn_configdir }}/x509"
+    state: directory 
+    mode: 0750
+    owner: root
+    group: "{{openvpn_group}}"
+
+    
+- name: copy x509 to slave
+  copy:
+    src: "{{ openvpn_master_storage_path }}/{{ item }}"
+    dest: "{{ openvpn_configdir }}/{{ item }}"
+  with_items: 
+  - "{{ openvpn_ca_cert }}"
+  - "{{ openvpn_server_cert }}"
+  - "{{ openvpn_server_key }}"
+  - "{{ openvpn_ca_crl_list }}"
+  - "{{ openvpn_tls_auth_key }}"  
+
+
+- name: protect server key
+  file: 
+    path: "{{ openvpn_configdir }}/{{ openvpn_server_key }}"
+    mode: 0400
+    owner: root
+    group: "{{openvpn_group}}"
