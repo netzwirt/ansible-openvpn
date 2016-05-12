@@ -42,6 +42,7 @@ openvpn_local_storage_path: "{{ inventory_dir }}/storage/{{ role_path.split('/')
 openvpn_is_pki_master: True
 openvpn_fetch_clientconfigs: True
 openvpn_fetch_x509: True
+openvpn_slave_prefix: ''
 openvpn_ca_cert: "{{ simplepki_ca_base_dir|trim }}/{{ simplepki_chained_ca_name|trim }}{{ simplepki_file_ext_crt }}"
 openvpn_server_cert: "{{ simplepki_certs_dir|trim }}/{{ openvpn_fqdn|trim }}{{ simplepki_file_ext_crt }}"
 openvpn_server_key: "{{ simplepki_certs_dir|trim }}/{{ openvpn_fqdn|trim }}{{ simplepki_file_ext_key }}"
@@ -51,6 +52,7 @@ openvpn_tls_auth_key: "{{ openvpn_keydir|trim }}/ta{{ openvpn_key_size }}.key"
 # EXAMPLE slave settings
 #
 # master_name: 'theother.com'
+# openvpn_slave_prefix: "{{ openvpn_configdir }}/"
 # openvpn_master_storage_path: "{{ inventory_dir }}/storage/{{ role_path.split('/').pop()  }}/{{ master_name }}"
 # openvpn_is_pki_master: False
 # openvpn_fetch_clientconfigs: False

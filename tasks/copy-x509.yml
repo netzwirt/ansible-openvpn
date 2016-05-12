@@ -23,9 +23,14 @@
   - "{{ openvpn_tls_auth_key }}"  
 
 
-- name: protect server key
+- name: protect keys
   file: 
-    path: "{{ openvpn_configdir }}/{{ openvpn_server_key }}"
+    path: "{{ openvpn_configdir }}/{{ item }}"
     mode: 0400
     owner: root
     group: "{{openvpn_group}}"
+  with_items: 
+  - "{{ openvpn_server_key }}"
+  - "{{ openvpn_tls_auth_key }}"  
+
+  

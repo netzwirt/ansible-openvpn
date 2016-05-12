@@ -25,12 +25,12 @@ topology subnet
 # and the server must have their own cert and
 # key file.  The server and all clients will
 # use the same ca file.
-ca   {{ openvpn_ca_cert }}
-cert {{ openvpn_server_cert }}
-key  {{ openvpn_server_key }}  # This file should be kept secret
+ca   {{ openvpn_slave_prefix }}{{ openvpn_ca_cert }}
+cert {{ openvpn_slave_prefix }}{{ openvpn_server_cert }}
+key  {{ openvpn_slave_prefix }}{{ openvpn_server_key }}  # This file should be kept secret
 
 # Use certificate revocation list
-crl-verify {{ openvpn_ca_crl_list }}
+crl-verify {{ openvpn_slave_prefix }}{{ openvpn_ca_crl_list }}
 
 # Diffie Hellman parameters.
 dh {{ openvpn_keydir }}/dh{{ openvpn_key_size }}.pem
@@ -103,7 +103,7 @@ keepalive 10 120
 # a copy of this key.
 # The second parameter should be '0'
 # on the server and '1' on the clients.
-tls-auth {{ openvpn_tls_auth_key}} 0 # This file is secret
+tls-auth {{ openvpn_slave_prefix }}{{ openvpn_tls_auth_key}} 0 # This file is secret
 
 # Client certificate type
 remote-cert-eku "TLS Web Client Authentication"
