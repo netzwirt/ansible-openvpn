@@ -103,6 +103,7 @@ remote-cert-eku "TLS Web Server Authentication"
 ;cipher BF-CBC        # Blowfish (default)
 ;cipher AES-128-CBC   # AES
 ;cipher DES-EDE3-CBC  # Triple-DES
+cipher {{ openvpn_cipher }}
 
 # Enable compression on the VPN link.
 # Don't enable this unless it is also

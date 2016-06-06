@@ -10,6 +10,10 @@ openvpn_push_ns: []
 openvpn_push_domains: []
 openvpn_push_routes: []
 
+openvpn_cipher: "BF-CBC"
+openvpn_max_clients: 100
+openvpn_push_redirect_gateway: False
+
 openvpn_fqdn: "{{ ansible_fqdn }}"
 
 # simple configuration with --server

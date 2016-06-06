@@ -6,6 +6,11 @@
 local {{ openvpn_listen}}
 {% endif %}
 
+
+{% if openvpn_push_redirect_gateway %}
+push "redirect-gateway def1"
+{% endif %}
+
 # Which TCP/UDP port should OpenVPN listen on?
 # If you want to run multiple OpenVPN instances
 # on the same machine, use a different port
@@ -114,6 +119,7 @@ remote-cert-eku "TLS Web Client Authentication"
 ;cipher BF-CBC        # Blowfish (default)
 ;cipher AES-128-CBC   # AES
 ;cipher DES-EDE3-CBC  # Triple-DES
+cipher {{ openvpn_cipher }}
 
 # Enable compression on the VPN link.
 # If you enable it here, you must also
@@ -123,6 +129,7 @@ comp-lzo
 # The maximum number of concurrently connected
 # clients we want to allow.
 ;max-clients 100
+max-clients {{ openvpn_max_clients }}
 
 # It's a good idea to reduce the OpenVPN
 # daemon's privileges after initialization.
