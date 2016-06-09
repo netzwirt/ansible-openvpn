@@ -53,6 +53,10 @@ openvpn_server_key: "{{ simplepki_certs_dir|trim }}/{{ openvpn_fqdn|trim }}{{ si
 openvpn_ca_crl_list: "{{ simplepki_crls_dir|trim }}/{{ simplepki_signing_ca_name|trim }}.crl"
 openvpn_tls_auth_key: "{{ openvpn_keydir|trim }}/ta{{ openvpn_key_size }}.key"
 
+# Iptable specific configuration
+openvpn_configure_iptables: False
+openvpn_fw_addr: "{{ openvpn_server_full_pool.replace(' ', '/') | ipaddr('net') }}"
+
 # EXAMPLE slave settings
 #
 # master_name: 'theother.com'
