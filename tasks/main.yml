@@ -75,6 +75,14 @@
   when: openvpn_is_pki_master
 
 
+- name: create clientconfig (ccd)
+  template:
+    src: ccd.tpl.j2
+    dest: "{{openvpn_clientconfig_dir}}/{{ item.fullname }} <{{ item.email }}>"
+  with_items: "{{  openvpn_users  }}"
+  when: item.ip_addr is defined
+
+
 - name: fetch x509 items
   fetch: 
     src: "{{ item }}"
