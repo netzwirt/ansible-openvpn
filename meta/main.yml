@@ -20,5 +20,5 @@ galaxy_info:
   - security
   - cryptography
 
-  
+dependencies: []
 allow_duplicates: yes 
