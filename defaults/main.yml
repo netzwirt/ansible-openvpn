@@ -6,6 +6,8 @@ openvpn_port: 1194
 openvpn_proto: udp
 openvpn_key_size: 2048
 
+openvpn_management_port: 7065
+
 openvpn_push_ns: []
 openvpn_push_domains: []
 openvpn_push_routes: []

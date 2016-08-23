@@ -151,6 +151,10 @@ persist-tun
 # and rewritten every minute.
 status openvpn-status.log
 
+# Enable management monitor
+management localhost {{ openvpn_management_port }}
+
+
 # By default, log messages will go to the syslog (or
 # on Windows, if running as a service, they will go to
 # the "\Program Files\OpenVPN\log" directory).
