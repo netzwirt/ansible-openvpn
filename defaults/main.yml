@@ -49,11 +49,11 @@ openvpn_is_pki_master: True
 openvpn_fetch_clientconfigs: True
 openvpn_fetch_x509: True
 openvpn_slave_prefix: ''
-openvpn_ca_cert: "{{ simplepki_ca_base_dir|trim }}/{{ simplepki_chained_ca_name|trim }}{{ simplepki_file_ext_crt }}"
-openvpn_server_cert: "{{ simplepki_certs_dir|trim }}/{{ openvpn_fqdn|trim }}{{ simplepki_file_ext_crt }}"
-openvpn_server_key: "{{ simplepki_certs_dir|trim }}/{{ openvpn_fqdn|trim }}{{ simplepki_file_ext_key }}"
-openvpn_ca_crl_list: "{{ simplepki_crls_dir|trim }}/{{ simplepki_signing_ca_name|trim }}.crl"
-openvpn_tls_auth_key: "{{ openvpn_keydir|trim }}/ta{{ openvpn_key_size }}.key"
+openvpn_ca_cert: "{{ simplepki_ca_base_dir }}/{{ simplepki_chained_ca_name }}{{ simplepki_file_ext_crt }}"
+openvpn_server_cert: "{{ simplepki_certs_dir }}/{{ openvpn_fqdn }}{{ simplepki_file_ext_crt }}"
+openvpn_server_key: "{{ simplepki_certs_dir }}/{{ openvpn_fqdn }}{{ simplepki_file_ext_key }}"
+openvpn_ca_crl_list: "{{ simplepki_crls_dir }}/{{ simplepki_signing_ca_name }}.crl"
+openvpn_tls_auth_key: "{{ openvpn_keydir }}/ta{{ openvpn_key_size }}.key"
 
 # EXAMPLE slave settings
 #
