@@ -95,3 +95,7 @@
   - "{{ openvpn_ca_crl_list }}"
   - "{{ openvpn_tls_auth_key }}"
   when: openvpn_fetch_x509
+
+- name: Configure iptables
+  iptables: table="nat" chain="POSTROUTING" source="{{ openvpn_fw_addr }}" out_interface="{{ ansible_default_ipv4.interface }}" jump="MASQUERADE"
+  when: openvpn_configure_iptables
